@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'xapian'
 require 'pathname'
 require 'protobuf'
@@ -5,8 +7,8 @@ require 'base64'
 
 database = Xapian::Database.new
 
-database.add_database(Xapian::Database.new(Xapian::remote_open("ssh", "localhost xapian-progsrv #{Pathname.new("./output_database1").expand_path}")))
-database.add_database(Xapian::Database.new(Xapian::remote_open("ssh", "localhost xapian-progsrv #{Pathname.new("./output_database2").expand_path}")))
+database.add_database(Xapian::Database.new(Xapian::remote_open("ssh", "localhost xapian-progsrv #{Pathname.new("./database1").expand_path}")))
+database.add_database(Xapian::Database.new(Xapian::remote_open("ssh", "localhost xapian-progsrv #{Pathname.new("./database2").expand_path}")))
 
 enquire = Xapian::Enquire.new(database)
 
@@ -26,8 +28,10 @@ matchset.matches.each {|m|
 
 database.close
 
-if values != values.sort.reverse
-  puts "Out of order: #{values.count}"
-else
+if values == values.sort.reverse
   puts "In order: #{values.count}"
+elsif values == values.sort
+  puts "Reverse order: #{values.count}"
+else
+  puts "Out of order: #{values.count}"
 end
