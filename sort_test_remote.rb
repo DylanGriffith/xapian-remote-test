@@ -2,8 +2,6 @@
 
 require 'xapian'
 require 'pathname'
-require 'protobuf'
-require 'base64'
 
 database = Xapian::Database.new
 
