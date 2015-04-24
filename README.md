@@ -18,3 +18,9 @@ Test that it fails for remote sorting:
 $ ./sort_test_remote.rb
 Out of order: 100
 ```
+
+Test that it fails for remote TCP sorting:
+```bash
+$ ./sort_test_tcp.rb
+Out of order: 100 # And a bunch of output from shutting down the servers
+```
